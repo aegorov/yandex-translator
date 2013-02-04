@@ -44,7 +44,7 @@ module Yandex
     end
 
     def self.translate(text = '', language)
-      Translation.new.translate(language, text)
+      Translation.new.translate(text,language)
     end
 
   end
