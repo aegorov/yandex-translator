@@ -30,14 +30,13 @@ module Yandex
           when 422
             raise TranslationError.new("Can't translate text")
           when 501
-            raise TranslationError.new("Can't translate to this language")
+            raise TranslationError.new("Can't translate text to #{lang}")
           else
             raise TranslationError.new("Try again later")
         end
       end
 
     end
-
 
     def self.detect(text = '')
       Translation.new.detect_lang(text)

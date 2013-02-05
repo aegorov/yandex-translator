@@ -27,7 +27,7 @@ To detect language text use detect method:
 To translate text use translate method:
 
 ```ruby
-  Yandex::Translator.translate('ru', 'Car')
+  Yandex::Translator.translate('Car', 'ru')
 ```
 
 
