@@ -13,6 +13,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = ""
 
   gem.add_dependency "httparty"
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'webmock'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

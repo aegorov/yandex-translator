@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "yandex-translator/version"
 require "httparty"
 
@@ -18,10 +20,12 @@ module Yandex
         language["DetectedLang"]["lang"]
       end
 
-      def translate(text, language)
+      def translate(text, to_language, from_language)
+        lang = from_language.nil? ? to_language : "#{from_language}-#{to_language}"
         options = {}
-        options[:query] = { :lang => language, :text => text }
+        options[:query] = { :lang => lang, :text => text }
         translation = self.class.get("/translate", options)
+        raise TranslationError.new("Can't translate text to #{to_language}") if translation["Translation"].nil?
         case translation["Translation"]["code"].to_i
           when 200
             translation["Translation"]["text"]
@@ -30,7 +34,7 @@ module Yandex
           when 422
             raise TranslationError.new("Can't translate text")
           when 501
-            raise TranslationError.new("Can't translate text to #{lang}")
+            raise TranslationError.new("Can't translate text to #{to_language}")
           else
             raise TranslationError.new("Try again later")
         end
@@ -42,8 +46,8 @@ module Yandex
       Translation.new.detect_lang(text)
     end
 
-    def self.translate(text = '', language)
-      Translation.new.translate(text,language)
+    def self.translate(text, to_language, from_language = nil)
+      Translation.new.translate(text, to_language, from_language)
     end
 
   end

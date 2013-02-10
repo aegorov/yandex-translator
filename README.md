@@ -19,7 +19,7 @@ Or install it yourself as:
 
 ## Usage
 
-To detect language text use detect method:
+To determine language text use detect method:
 
 ```ruby
   Yandex::Translator.detect('Hello, world!')
@@ -30,6 +30,12 @@ To translate text use translate method:
   Yandex::Translator.translate('Car', 'ru')
 ```
 
+In this case Yandex automatically detect text language.
+If you want to set text language manually add third paramater
+
+```ruby
+  Yandex::Translator.translate('Car', 'ru', 'en')
+```
 
 ## Contributing
 
