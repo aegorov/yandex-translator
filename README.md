@@ -31,7 +31,7 @@ To translate text use translate method:
 ```
 
 In this case Yandex automatically detect text language.
-If you want to set text language manually add third paramater
+If you want to set text language manually add third parameter
 
 ```ruby
   Yandex::Translator.translate('Car', 'ru', 'en')
