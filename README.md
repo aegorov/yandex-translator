@@ -19,6 +19,12 @@ Or install it yourself as:
 
 ## Usage
 
+First, set your api key:
+
+```ruby
+  Yandex::Translator.set_api_key('API_KEY')
+```
+
 To determine language text use detect method:
 
 ```ruby
