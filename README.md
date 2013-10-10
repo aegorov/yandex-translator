@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/repos/5255368456b102667402265a/badges/cc0cf62aa85959503fc1/gpa.png)](https://codeclimate.com/repos/5255368456b102667402265a/feed)
+
 # Yandex::Translator
 
 Library for Yandex Translate API | Библиотека для API Яндекс.Переводчика
