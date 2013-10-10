@@ -35,24 +35,18 @@ module Yandex
         options[:query] = { :lang => lang, :text => text, :key => @@api_key }
         translation = self.class.get("/translate", options)
         raise TranslationError.new("Can't translate text to #{to_language}") if translation["Translation"].nil?
-        case translation["Translation"]["code"].to_i
-          when 200
-            translation["Translation"]["text"]
-          when 413
-            raise TranslationError.new("Text too long")
-          when 422
-            raise TranslationError.new("Can't translate text")
-          when 501
-            raise TranslationError.new("Can't translate text to #{to_language}")
-          else
-            check_api_errors(translation)
+        responce_code = translation["Translation"]["code"].to_i
+        if responce_code == 200
+          translation["Translation"]["text"]
+        else
+          check_errors(responce_code, to_language)
         end
       end
 
       private
 
-      def check_api_errors(responce)
-        case responce["Translation"]["code"].to_i
+      def check_errors(code, language)
+        case code
           when 401
             ApiError.new("Invalid api key")
           when 402
@@ -61,8 +55,14 @@ module Yandex
             ApiError.new("Daily request limit exceeded")
           when 404
             ApiError.new("Daily char limit exceeded")
+          when 413
+            TranslationError.new("Text too long")
+          when 422
+            TranslationError.new("Can't translate text")
+          when 501
+            TranslationError.new("Can't translate text to #{language}")
           else
-            raise TranslationError.new("Try again later")
+            TranslationError.new("Try again later")
         end
       end
 
