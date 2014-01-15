@@ -27,6 +27,12 @@ First, set your api key:
   Yandex::Translator.api_key = 'your.key'
 ```
 
+To get list of possible translation directions use get_langs method:
+
+```ruby
+  Yandex::Translator.get_langs
+```
+
 To determine language text use detect method:
 
 ```ruby
