@@ -24,25 +24,25 @@ Or install it yourself as:
 First, set your api key:
 
 ```ruby
-  Yandex::Translator.set_api_key('API_KEY')
+  Yandex::Translator.api_key = 'your.key'
 ```
 
 To determine language text use detect method:
 
 ```ruby
-  Yandex::Translator.detect('Hello, world!')
+  Yandex::Translator.detect 'Hello, world!' 
 ```
 To translate text use translate method:
 
 ```ruby
-  Yandex::Translator.translate('Car', 'ru')
+  Yandex::Translator.translate 'Car', 'ru' 
 ```
 
 In this case Yandex automatically detect text language.
 If you want to set text language manually add third parameter
 
 ```ruby
-  Yandex::Translator.translate('Car', 'ru', 'en')
+  Yandex::Translator.translate 'Car', 'en', 'ru'
 ```
 
 ## Contributing
