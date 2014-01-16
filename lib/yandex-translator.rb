@@ -11,22 +11,21 @@ module Yandex::Translator
   class ApiError < StandardError; end
 
   def get_langs
-    visit '/getLangs', key: api_key
+    visit('/getLangs')['dirs']
   end
 
-  def detect_lang(text)
-    options = { text: text, key: api_key }
-    visit '/detect', options
+  def detect(text)
+    visit('/detect', text: text)['lang']
   end
 
   def translate(text, *lang)
-    options = { text: text, lang: lang.join('-'), key: api_key }
-    result =(visit '/translate', options)['text']
+    options = { text: text, lang: lang.reverse.join('-') }
+    result = (visit '/translate', options)['text']
     result.size == 1 ? result.first : result
   end
 
   def visit(address, options = {})
-    responce = get(address, query: options)
+    responce = get address, query: options.merge(key: api_key)
     check_errors(responce) unless responce.code == 200
     responce
   end
