@@ -1,5 +1,5 @@
 module Yandex
-  module Translator
+  class Translator
     VERSION = "0.2.0"
   end
 end
