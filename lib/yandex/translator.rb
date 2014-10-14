@@ -1,5 +1,11 @@
 module Yandex
   class Translator
+    ERROR_BY_CODE = {
+      401 => 'Invalid api key', 402 => 'Api key blocked', 403 => 'Daily request limit exceeded',
+      404 => 'Daily char limit exceeded', 413 => 'Daily char limit exceeded',
+      422 => 'Can\'t translate text', 501 => 'Can\'t translate text in that direction'
+    }
+
     include HTTParty
     base_uri 'https://translate.yandex.net/api/v1.5/tr.json'
 
@@ -18,8 +24,15 @@ module Yandex
     end
 
     def translate(text, *lang)
+      if lang.last.is_a?(Hash)
+        lang_options = lang.last
+        lang = [lang_options[:from], lang_options[:to]].compact
+      end
+
       options = { text: text, lang: lang.reverse.join('-') }
+      
       result = visit('/translate', options)['text']
+
       result.size == 1 ? result.first : result
     end
 
@@ -32,22 +45,18 @@ module Yandex
     private
 
     def check_errors(response)
+      return if response.code == 200
       error = error_by_code(response.code)
-      fail error if error.present?
+      fail error if error
     end
 
     def error_by_code(code)
-      case code
-      when 401 then ApiError.new('Invalid api key')
-      when 402 then ApiError.new('Api key blocked')
-      when 403 then ApiError.new('Daily request limit exceeded')
-      when 404 then ApiError.new('Daily char limit exceeded')
-      when 413 then TranslationError.new('Text too long')
-      when 422 then TranslationError.new('Can\'t translate text')
-      when 501 then TranslationError.new('Can\'t translate text in that direction')
-      else
-        nil
-      end
+      error_class = Yandex::ApiError
+      error_class = Yandex::TranslationError unless 401 <= code && code <= 404
+
+      error_text = ERROR_BY_CODE[code] || 'Unknown error'
+
+      fail error_class, error_text
     end
 
   end
