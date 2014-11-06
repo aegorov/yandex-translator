@@ -5,6 +5,41 @@ describe Yandex::Translator do
 
   subject(:translator) { Yandex::Translator.new(api_key) }
 
+  describe '::translate' do
+    before do
+      expect_any_instance_of(Yandex::Translator).to receive(:translate)
+      Yandex::Translator.api_key = api_key
+    end
+
+    it 'calls translate method on instace object' do
+      Yandex::Translator.translate('Bar', 'ru', 'en')
+    end
+  end
+
+  describe '::get_langs' do
+    before do
+      expect_any_instance_of(Yandex::Translator).to receive(:get_langs)
+      Yandex::Translator.api_key = api_key
+    end
+
+    it 'calls translate method on instace object' do
+      Yandex::Translator.get_langs
+    end
+  end
+
+  describe '::detect' do
+    before do
+      expect_any_instance_of(Yandex::Translator).to receive(:detect)
+      Yandex::Translator.api_key = api_key
+    end
+
+    it 'calls translate method on instace object' do
+      Yandex::Translator.detect('Car')
+    end
+  end
+
+
+
   describe '#translate' do
     let(:translate_url) { 'https://translate.yandex.net/api/v1.5/tr.json/translate' }
     let(:translate_request_body) { "text=Car&lang=ru&key=#{api_key}" }
