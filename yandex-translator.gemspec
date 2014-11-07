@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'yandex-translator/version'
+require 'yandex/translator/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "yandex-translator"
@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = ""
 
   gem.add_dependency "httparty"
-  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec', '~> 3.1'
   gem.add_development_dependency 'webmock'
 
   gem.files         = `git ls-files`.split($/)
