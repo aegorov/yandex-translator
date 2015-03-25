@@ -64,8 +64,9 @@ module Yandex
     private
 
     def check_errors(response)
-      return if response['code'].to_i == 200
-      fail ApiError, response['message']
+      if response['code'] and response['code'].to_i != 200
+        fail ApiError, response['message']
+      end
     end
   end
 end

@@ -134,4 +134,28 @@ describe Yandex::Translator do
       end
     end
   end
+
+  describe '#langs' do
+    let(:langs_url) { "https://translate.yandex.net/api/v1.5/tr.json/getLangs" }
+    let(:langs_request_body) { "key=#{api_key}" }
+    let(:langs_response_body) { '{"dirs": ["en-ru"]}' }
+    let!(:langs_request) do
+      stub_request(:post, langs_url)
+      .with(body: langs_request_body)
+      .to_return(
+        body: langs_response_body,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+    end
+
+    it 'hits correct url' do
+      translator.langs
+      expect(langs_request).to have_been_made.once
+    end
+
+    it 'returns array of dirs' do
+      expect(translator.langs).to eq ['en-ru']
+    end
+
+  end
 end
