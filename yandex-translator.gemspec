@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Yandex Translate API}
   gem.homepage      = ""
 
-  gem.add_dependency "httparty"
+  gem.add_dependency 'httparty', '>= 0.13.4'
   gem.add_development_dependency 'rspec', '~> 3.1'
   gem.add_development_dependency 'webmock'
 
