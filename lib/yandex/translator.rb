@@ -1,3 +1,9 @@
+class JsonParser < HTTParty::Parser
+  def json
+    ::JSON.parse(body)
+  end
+end
+
 module Yandex
   class Translator
     include HTTParty
