@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://translate.yandex.net/api/v1.5/tr.json/translate
+    body:
+      encoding: UTF-8
+      string: text=Car&lang=en-ru&key=wrong_api_key
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Server:
+      - nginx/1.6.2
+      Date:
+      - Fri, 19 May 2017 10:25:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '43'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=120
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-store
+    body:
+      encoding: UTF-8
+      string: '{"code":401,"message":"API key is invalid"}'
+    http_version: 
+  recorded_at: Fri, 19 May 2017 10:25:20 GMT
+recorded_with: VCR 3.0.3

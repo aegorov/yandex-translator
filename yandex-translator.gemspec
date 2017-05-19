@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'httparty', '>= 0.13.4'
   gem.add_development_dependency 'rspec', '~> 3.1'
   gem.add_development_dependency 'webmock'
+  gem.add_development_dependency 'vcr'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
