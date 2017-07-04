@@ -1,6 +1,15 @@
+
 module Yandex
+
+  class JsonParser < HTTParty::Parser
+    def json
+      ::JSON.parse(body)
+    end
+  end
+
   class Translator
     include HTTParty
+    parser JsonParser
     base_uri 'https://translate.yandex.net/api/v1.5/tr.json'
 
     attr_reader :api_key

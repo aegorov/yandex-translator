@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://translate.yandex.net/api/v1.5/tr.json/translate
+    body:
+      encoding: UTF-8
+      string: text=Car&lang=ru&key=<YANDEX_API_KEY>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.6.2
+      Date:
+      - Fri, 19 May 2017 10:25:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '59'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=120
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-store
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJjb2RlIjoyMDAsImxhbmciOiJlbi1ydSIsInRleHQiOlsi0JDQstGC0L7QvNC+0LHQuNC70YwiXX0=
+    http_version: 
+  recorded_at: Fri, 19 May 2017 10:25:18 GMT
+recorded_with: VCR 3.0.3

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'vcr'
 
 describe Yandex::Translator do
   let(:api_key) { 'secret' }
