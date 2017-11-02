@@ -51,13 +51,14 @@ module Yandex
       lang == '' ? nil : lang
     end
 
-    def translate(text, *lang)
+    def translate(text, *lang, format)
       if lang.last.is_a?(Hash)
         lang_options = lang.last
         lang = [lang_options[:to], lang_options[:from]].compact
       end
-
-      options = { text: text, lang: lang.reverse.join('-') }
+      
+      format == '' ? '' : 'html'
+      options = { text: text, lang: lang.reverse.join('-'), format: format }
 
       result = visit('/translate', options)['text']
 
