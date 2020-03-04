@@ -26,8 +26,8 @@ module Yandex
         translator.get_langs
       end
 
-      def translate(text, *lang)
-        translator.translate(text, *lang)
+      def translate(text, from: nil, to: nil)
+        translator.translate(text, from: from, to: to)
       end
 
       def detect(text)
@@ -51,13 +51,10 @@ module Yandex
       lang == '' ? nil : lang
     end
 
-    def translate(text, *lang)
-      if lang.last.is_a?(Hash)
-        lang_options = lang.last
-        lang = [lang_options[:to], lang_options[:from]].compact
-      end
+    def translate(text, from: nil, to: nil, format: 'plain')
+      lang = (to.nil? && from.nil?) ? [] : [to, from].compact
 
-      options = { text: text, lang: lang.reverse.join('-') }
+      options = { text: text, lang: lang.reverse.join('-'), format: format }
 
       result = visit('/translate', options)['text']
 
